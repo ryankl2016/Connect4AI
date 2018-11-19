@@ -255,7 +255,7 @@ def test3():
 
     while i > 0:
         printBoard(game.board)
-        if i % 2 != player:
+        if i % 2 == player:
             game.CP_move(players[i % 2], game.board.grid)
         else:
             col = input('Drop in column:')
