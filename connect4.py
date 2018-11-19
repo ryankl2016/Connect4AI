@@ -265,6 +265,7 @@ def test3():
             game.move(col - 1, players[i % 2], game.board.grid)
         print('\n')
         if isWinner(players[i % 2], game.board.grid):
+            printBoard(game.board)
             print(players[i % 2] + ' wins!')
             break
         i -= 1
