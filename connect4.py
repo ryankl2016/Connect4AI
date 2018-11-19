@@ -248,7 +248,7 @@ def test3():
     i = 42
     players = ['X', 'O']
     player = input('Player 0 or Player 1? [0/1]')
-    possible_moves = [i for i in range(BOARD_WIDTH)]
+    possible_moves = [move for move in range(BOARD_WIDTH + 1)]
 
     while player != 1 and player != 0:
         player = input('Player 0 or Player 1? [0/1]')
