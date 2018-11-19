@@ -247,9 +247,14 @@ def test3():
     game = Game()
     i = 42
     players = ['X', 'O']
+    player = input('Player 0 or Player 1? [0/1]')
+
+    while player != 1 and player != 0:
+        player = input('Player 0 or Player 1? [0/1]')
+
     while i > 0:
         printBoard(game.board)
-        if i % 2 == 1:
+        if i % 2 != player:
             game.CP_move(players[i % 2], game.board.grid)
         else:
             col = input('Drop in column:')
@@ -262,6 +267,18 @@ def test3():
             print(players[i % 2] + ' wins!')
             break
         i -= 1
+
+    y = 'y'
+    n = 'n'
+    rematch = input('Play again? [y/n]')
+    while rematch != 'y' and rematch != 'n':
+        rematch = input('Play again? [y/n]')
+    if rematch == 'y':
+        test3()
+    else:
+        return
+
+
 
 def test4():
     game = Game()
