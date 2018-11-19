@@ -10,3 +10,8 @@ AI player evaluates a position as the number of possible 4 in a row for player i
 # Observations:
 Without alpha-beta pruning, computer player could look 4 moves ahead and play next move almost instantly on a 7 x 6 board. 
 With alpha-beta pruning, computer player could look 6 moves ahead and play almost instantly.
+
+# How to play:
+1. ```git clone <repo>``` in terminal
+2. ```python connect4.py```
+3. Test your wit
