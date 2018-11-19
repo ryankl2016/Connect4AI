@@ -1,7 +1,7 @@
 # Connect4AI
 Backend to a Connect4 AI computer player which looks 6 moves ahead
 
-#Background: 
+##Background: 
 The AI player uses a classical artificial intellgence approach, evaluating all outcomes 6 moves ahead with a heuristic function.
 Heuristic function is the number of possible 4 in a rows for player minus the possible 4 in a rows for opponent. 
 A possible 4 in a row is defined as a 4 in a row with one blank (i.e. X X _ X or X X X _)
