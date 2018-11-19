@@ -242,7 +242,7 @@ def test2():
         i -= 1
     return [0, 0]
 
-# test allows user to play again computer in terminal
+# test allows user to play against computer in terminal
 def test3():
     game = Game()
     i = 42
