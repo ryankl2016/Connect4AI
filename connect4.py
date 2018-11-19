@@ -245,7 +245,7 @@ def test2():
 # test allows user to play against computer in terminal
 def test3():
     game = Game()
-    i = 42
+    i = BOARD_WIDTH * BOARD_HEIGHT + 1
     players = ['X', 'O']
     player = input('Player 0 or Player 1? [0/1]')
     possible_moves = [move for move in range(BOARD_WIDTH + 1)]
