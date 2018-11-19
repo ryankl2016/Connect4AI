@@ -248,6 +248,7 @@ def test3():
     i = 42
     players = ['X', 'O']
     player = input('Player 0 or Player 1? [0/1]')
+    possible_moves = [i for i in range(BOARD_WIDTH)]
 
     while player != 1 and player != 0:
         player = input('Player 0 or Player 1? [0/1]')
@@ -258,10 +259,10 @@ def test3():
             game.CP_move(players[i % 2], game.board.grid)
         else:
             col = input('Drop in column:')
-            while not col:
+            while col not in possible_moves:
                 col = input('Drop in column:')
-            col = int(col)
-            game.move(col, players[i % 2], game.board.grid)
+
+            game.move(col - 1, players[i % 2], game.board.grid)
         print('\n')
         if isWinner(players[i % 2], game.board.grid):
             print(players[i % 2] + ' wins!')
