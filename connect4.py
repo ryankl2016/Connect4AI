@@ -105,7 +105,9 @@ class Game():
             return
 
         # if numerous best moves, choose random best move
-        self.move(bestMoves[random.randint(0, len(bestMoves) - 1)], chip, grid)
+        move = random.randint(0, len(bestMoves) - 1) + 1
+        print('CP plays ' + str(move))
+        self.move(bestMoves[move - 1], chip, grid)
         return
 
 # contains grid of current game
@@ -247,7 +249,7 @@ def test2():
 def test3():
     game = Game()
     i = BOARD_WIDTH * BOARD_HEIGHT + 1
-    players = ['X', 'O']
+    players = ['O', 'X']
     player = input('Player 0 or Player 1? [0/1]')
     possible_moves = [move for move in range(1, BOARD_WIDTH + 1)]
 
@@ -285,22 +287,44 @@ def test3():
 
 def test4():
     game = Game()
-    game.board.grid = [ ['X', 'O', 'O', '_', 'X', 'O', 'X'],
-                        ['O', 'X', 'X', '_', 'X', 'O', 'O'],
-                        ['O', 'X', 'X', '_', 'X', 'X', 'O'],
-                        ['X', 'O', 'X', '_', 'O', 'O', 'O'],
-                        ['X', 'O', 'O', '_', 'X', 'O', 'X'],
-                        ['O', 'O', 'X', 'X', 'O', 'X', 'X'] ]
-    i = 7
-    players = ['X', 'O']
+    game.board.grid = [ ['1', '2', '3', '4', '5', '6', '7'],
+                        ['_', '_', '_', 'O', '_', '_', '_'],
+                        ['_', '_', 'X', 'X', 'X', 'O', '_'],
+                        ['_', '_', 'O', 'O', 'O', 'X', '_'],
+                        ['_', '_', 'O', 'X', 'X', 'X', '_'],
+                        ['_', '_', 'O', 'O', 'O', 'X', '_'],
+                        ['_', '_', 'X', 'O', 'X', 'O', '_'] ]
+    i = 30
+    players = ['O', 'X']
+    player = 1
+    possible_moves = [move for move in range(1, BOARD_WIDTH + 1)]
     while i > 0:
-        game.CP_move(players[i % 2], game.board.grid)
         printBoard(game.board)
+        if i % 2 == player:
+            game.CP_move(players[i % 2], game.board.grid)
+        else:
+            col = input('Drop in column:')
+            while col not in possible_moves:
+                col = input('Drop in column:')
+
+            game.move(col - 1, players[i % 2], game.board.grid)
         print('\n')
         if isWinner(players[i % 2], game.board.grid):
+            printBoard(game.board)
             print(players[i % 2] + ' wins!')
             break
         i -= 1
+
+    y = 'y'
+    n = 'n'
+    rematch = input('Play again? [y/n]')
+    while rematch != 'y' and rematch != 'n':
+        rematch = input('Play again? [y/n]')
+    if rematch == 'y':
+        test3()
+    else:
+        return
+
 
 def test5():
     scoreX, scoreO = 0, 0
