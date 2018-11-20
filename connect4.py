@@ -105,9 +105,9 @@ class Game():
             return
 
         # if numerous best moves, choose random best move
-        move = random.randint(0, len(bestMoves) - 1) + 1
-        print('CP plays ' + str(move))
-        self.move(bestMoves[move - 1], chip, grid)
+        move = bestMoves[random.randint(0, len(bestMoves) - 1)]
+        print('CP plays ' + str(move + 1))
+        self.move(move, chip, grid)
         return
 
 # contains grid of current game
