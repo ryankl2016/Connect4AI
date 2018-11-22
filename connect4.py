@@ -60,7 +60,7 @@ class Game():
         bestScore = turn[2]
         comparator = turn[1]
         temp = None
-        mode = turn[3]
+        pruneBuf = turn[3]
 
         for i in range(0, BOARD_WIDTH):
 
@@ -69,13 +69,11 @@ class Game():
             if newGrid: # if move succeeded
 
                 newScore = self.getBestScore(player, newGrid, steps + 1, temp)
-                #print(steps, turn[0], i+1, newScore)
+
                 # minimax prune
-                if minmaxVal != None and (newScore + mode) == comparator(newScore + mode, minmaxVal):
-                    # print(steps, turn[0], i+1, newScore)
+                if minmaxVal != None and (newScore + pruneBuf) == comparator(newScore + pruneBuf, minmaxVal):
                     return newScore
-                # if (newScore == 100 and comparator == max) or (newScore == -100 and comparator == min):
-                #     return newScore
+
                 # set new running best score
                 if newScore == comparator(newScore, bestScore):
                     bestScore = newScore
@@ -91,13 +89,13 @@ class Game():
         temp = None # temp value for alpha-beta pruning
 
         for i in range(0, BOARD_WIDTH):
-        # for i in range(3, 4):
+
             newGrid = self.drop(i, chip, grid)
 
             if newGrid: # if dropping chip in col i succeeded
 
                 newScore = self.getBestScore(chip, newGrid, 1, temp)
-                # print(i + 1, newScore)
+
                 if newScore == bestScore: # if new move is equally good as best moves
                     bestMoves.append(i)
 
