@@ -45,7 +45,7 @@ class Game():
     def getBestScore(self, chip, grid, steps, minmaxVal = None):
 
         player, opponent = self.getPlayer(chip) # keeps player and opponent consistent per turn
-        turn = [[player, max, -50], [opponent, min, 50]][steps % 2] # players turn if steps even, opponent o.w.
+        turn = [[player, max, -50, -1], [opponent, min, 50, 1]][steps % 2] # players turn if steps even, opponent o.w.
         _, lastMover = self.getPlayer(turn[0]) # lastMover == player who last moved
 
         if isWinner(lastMover, grid): # if last move caused win, return max or min rewards
@@ -54,23 +54,28 @@ class Game():
             else:
                 return -100
 
-        if steps == 0: # return heuristic value
+        if steps == 5: # return heuristic value
             return almostFours(player, grid) - almostFours(opponent, grid)
 
         bestScore = turn[2]
         comparator = turn[1]
         temp = None
+        mode = turn[3]
+
         for i in range(0, BOARD_WIDTH):
 
             newGrid = self.drop(i, turn[0], grid)
 
             if newGrid: # if move succeeded
-                newScore = self.getBestScore(player, newGrid, steps - 1, temp)
 
+                newScore = self.getBestScore(player, newGrid, steps + 1, temp)
+                #print(steps, turn[0], i+1, newScore)
                 # minimax prune
-                if newScore == comparator(newScore, minmaxVal):
+                if minmaxVal != None and (newScore + mode) == comparator(newScore + mode, minmaxVal):
+                    # print(steps, turn[0], i+1, newScore)
                     return newScore
-
+                # if (newScore == 100 and comparator == max) or (newScore == -100 and comparator == min):
+                #     return newScore
                 # set new running best score
                 if newScore == comparator(newScore, bestScore):
                     bestScore = newScore
@@ -79,19 +84,20 @@ class Game():
         return bestScore
 
     # computer player moves always maximizing player score and minimizing opponent
-    def CP_move(self, chip, grid, steps = 6):
+    def CP_move(self, chip, grid):
 
         bestMoves = [] # list of best moves
         bestScore = -100 # running max score
         temp = None # temp value for alpha-beta pruning
 
         for i in range(0, BOARD_WIDTH):
+        # for i in range(3, 4):
             newGrid = self.drop(i, chip, grid)
 
             if newGrid: # if dropping chip in col i succeeded
 
-                newScore = self.getBestScore(chip, newGrid, steps - 1, temp)
-
+                newScore = self.getBestScore(chip, newGrid, 1, temp)
+                # print(i + 1, newScore)
                 if newScore == bestScore: # if new move is equally good as best moves
                     bestMoves.append(i)
 
@@ -287,16 +293,15 @@ def test3():
 
 def test4():
     game = Game()
-    game.board.grid = [ ['1', '2', '3', '4', '5', '6', '7'],
-                        ['_', '_', '_', 'O', '_', '_', '_'],
-                        ['_', '_', 'X', 'X', 'X', 'O', '_'],
-                        ['_', '_', 'O', 'O', 'O', 'X', '_'],
-                        ['_', '_', 'O', 'X', 'X', 'X', '_'],
-                        ['_', '_', 'O', 'O', 'O', 'X', '_'],
-                        ['_', '_', 'X', 'O', 'X', 'O', '_'] ]
+    game.board.grid = [ ['_', '_', '_', '_', '_', '_', '_'],
+                        ['_', '_', '_', '_', '_', '_', '_'],
+                        ['_', '_', 'X', '_', '_', '_', '_'],
+                        ['_', '_', 'O', '_', '_', '_', '_'],
+                        ['O', 'X', 'O', 'O', 'X', '_', 'X'],
+                        ['X', 'O', 'O', 'X', 'O', 'X', 'X'] ]
     i = 30
     players = ['O', 'X']
-    player = 1
+    player = 0
     possible_moves = [move for move in range(1, BOARD_WIDTH + 1)]
     while i > 0:
         printBoard(game.board)
