@@ -16,4 +16,4 @@ With alpha-beta pruning, computer player could look 6 moves ahead and play almos
 2. ```python connect4.py```
 3. Test your wit
 
-<img src="c4.png" alt="Screenshot"/>
+<img src="c4.png" width="80%" height="80%" alt="Screenshot"/>
