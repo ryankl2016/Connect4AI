@@ -12,8 +12,7 @@ Without alpha-beta pruning, computer player could look 4 moves ahead and play ne
 With alpha-beta pruning, computer player could look 6 moves ahead and play almost instantly.
 
 # How to play:
-1. ```git clone https://github.com/ryankl2016/Connect4AI.git``` in terminal
-2. ```python connect4.py```
-3. Test your wit
+1. Go to http://ryan-leung.me/projects/connect4/
+2. Test your wit
 
 <img src="c4.png" width="80%" height="80%" alt="Screenshot"/>
